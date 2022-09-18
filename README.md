@@ -4,7 +4,7 @@ A tic-tac-toe game for the application of factory functions, modules, code desig
 
 ## Planning the project
 
-I am doing minimal UI for this project. I want to apply what i've learned regarding the new content.
+I am doing minimal UI for this project. I want to apply what i've learned involving the new content.
 
 ### High-level overview of what project needs to do
 
