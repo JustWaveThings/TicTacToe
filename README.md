@@ -57,7 +57,7 @@ gameMoves logic:
 
 - Do I want an array of objects of each possible win, but with a placeholder in each unused position, that is updated to the player's marker (x / o) once it is placed on the board...
 
-```
+```js
 gameMoves(
   {a1: 1, a2: 1, a3: 1},
   {b1: 1, b2: 1, b3: 1},
