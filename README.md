@@ -51,11 +51,12 @@ Take 2 player names, then using a display, prompt each player to place their mar
 ---
 
 - Gameboard Object
-  - possibleWin array of object elements (8 to start)
   - gameMoves array of completed/possible moves
 
 gameMoves logic:
   - Do I want an array of objects that match possibleWin, but with a placeholder in each unused position, that is updated to the player's marker (x / o) once it is placed on the board... 
+    - How to find tie / winner in this case?
+    - first, remove any polluted lines from gameMoves array...
 
 - Player Object
   -co  
@@ -66,8 +67,8 @@ gameMoves logic:
 My thoughts
 
 - Keep same lines as object in array (3 row, 3 column, 2 diagonal)
-- After turn 2.5 and every move after,  invoke function to remove any polluted line element (a line with both markers on it) from the possible win array, then check the gameboard array against the possible win array for 3 markers of either player (if found, break loop and declare winner)
-- Put function loop --- while possible wins array length is not 0, game continues.  If game gets to 0 possible winning lines, tie is declared.
+- After turn 2.5 and every move after,  invoke function to remove any polluted line element (a line with both markers on it) from the gameMoves array, then check the gameboard array against the possible win array for 3 markers of either player (if found, break loop and declare winner)
+- Put function loop --- while possible wins array length is not 0, game continues.  If game gets to 0 possible winning lines in gameMoves, tie is declared.
 
 ---
 
