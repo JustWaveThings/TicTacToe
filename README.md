@@ -54,12 +54,30 @@ Take 2 player names, then using a display, prompt each player to place their mar
   - gameMoves array of completed/possible moves
 
 gameMoves logic:
-  - Do I want an array of objects that match possibleWin, but with a placeholder in each unused position, that is updated to the player's marker (x / o) once it is placed on the board... 
-    - How to find tie / winner in this case?
-    - first, remove any polluted lines from gameMoves array...
+
+- Do I want an array of objects of each possible win, but with a placeholder in each unused position, that is updated to the player's marker (x / o) once it is placed on the board...
+
+```
+gameMoves(
+  {a1: 1, a2: 1, a3: 1},
+  {b1: 1, b2: 1, b3: 1},
+  {c1: 1, c2: 1, c3: 1},
+  {a1: 1, b1: 1, c1: 1},
+  {a2: 1, b2: 1, c2: 1},
+  {a3: 1, b3: 1, c3: 1},
+  {a1: 1, b2: 1, c3: 1},
+  {a3: 1, b2: 1, c1: 1}
+  )
+
+```
+
+- We'd want to map each gameboard square to a position, and change the value to X or O in every element where that square resides.
+
+- How to find tie / winner in this case?
+  - See if there are any placeholders left, if none left, declare a draw. - reduce() gameMoves if the number is zero, it's a draw.
+  - After move 5, and after every move afterwards, test the gameMoves array for elements that have 3 of the same marker in them, if one does, end game and declare winner. If not, prompt next move.
 
 - Player Object
-  -co  
 - Win / tie checker Object
 
 > Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
@@ -67,8 +85,7 @@ gameMoves logic:
 My thoughts
 
 - Keep same lines as object in array (3 row, 3 column, 2 diagonal)
-- After turn 2.5 and every move after,  invoke function to remove any polluted line element (a line with both markers on it) from the gameMoves array, then check the gameboard array against the possible win array for 3 markers of either player (if found, break loop and declare winner)
-- Put function loop --- while possible wins array length is not 0, game continues.  If game gets to 0 possible winning lines in gameMoves, tie is declared.
+- After turn 5 and every move after, invoke function to check the gameboard array for 3 markers of either player (if found, break loop and declare winner) If game gets to 0 moves available in gameMoves (count of ), draw is declared.
 
 ---
 
