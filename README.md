@@ -46,14 +46,29 @@ Take 2 player names, then using a display, prompt each player to place their mar
 
 > Think carefully about where each bit of logic should reside. Each little piece of functionality should be able to fit in the game, player or gameboard objects.. but take care to put them in “logical” places. Spending a little time brainstorming here can make your life much easier later!
 
-- Yes, that's why I'm doing this. I want to focus on producing logically constructed code / mvp.
-
-> Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
-
-- keep same lines as object in array (3 row, 3 column, 2 diagonal)
-- after turn 2.5 and every move after,  invoke function to remove any polluted line element (a line with both markers on it) from the possible win array, then check the gameboard array against the possible win array for 3 markers of either player (if found, break loop and declare winner)
-- put function loop --- while possible wins array length is not 0, game continues.  If game gets to 0 possible winning lines, tie is declared.
+- Yes, that's why I'm doing this. I want to focus on producing logically constructed code / mvp
 
 ---
 
-- __Bonus__ - Make a Computer Player that is _unbeatable_.  -- not sure if I am going to tackle this or not. I would like to have that functionality, but I am not sure if it's worth the time / effort.
+- Gameboard Object
+  - possibleWin array of object elements (8 to start)
+  - gameMoves array of completed/possible moves
+
+gameMoves logic:
+  - Do I want an array of objects that match possibleWin, but with a placeholder in each unused position, that is updated to the player's marker (x / o) once it is placed on the board... 
+
+- Player Object
+  -co  
+- Win / tie checker Object
+
+> Build the logic that checks for when the game is over! Should check for 3-in-a-row and a tie.
+
+My thoughts
+
+- Keep same lines as object in array (3 row, 3 column, 2 diagonal)
+- After turn 2.5 and every move after,  invoke function to remove any polluted line element (a line with both markers on it) from the possible win array, then check the gameboard array against the possible win array for 3 markers of either player (if found, break loop and declare winner)
+- Put function loop --- while possible wins array length is not 0, game continues.  If game gets to 0 possible winning lines, tie is declared.
+
+---
+
+- __Bonus__ - Make a Computer Player that is _unbeatable_.  -- I'm not sure if I am going to tackle this or not. I would like to have that functionality, but I am not sure if it's worth the time / effort.
