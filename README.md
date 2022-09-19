@@ -44,7 +44,7 @@ Take 2 player names, then using a display, prompt each player to place their mar
 - if you need one of something, use a module, if more than one, use a factory
 - remove eventhandler from space once clicked (remember the once parameter for eventhandlers this time... easy peasy)
 
-<img src="img/ttt%20layout.png" width="400"/>
+<p align="center"><img src="img/ttt%20layout.png" width="400"/></p>
 
 > Think carefully about where each bit of logic should reside. Each little piece of functionality should be able to fit in the game, player or gameboard objects.. but take care to put them in “logical” places. Spending a little time brainstorming here can make your life much easier later!
 
