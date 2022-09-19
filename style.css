@@ -62,8 +62,9 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
- 
+  text-shadow: 1px 1px #ff0000;
 }
+ 
 .right {
   margin-left: 15px;
   rotate: 12.5deg;
