@@ -2,4 +2,45 @@ body {
   background-color: rgba(0, 0, 0, .9);
   padding: 0;
   margin: 0;
+  color: rgba(196, 195, 195, 0.576);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around ;
+  align-items: center;
 }
+
+.main{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex: auto;
+  width: 90vw;
+
+
+}
+.display {
+  display: flex;
+  flex: .25 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+.playing-area {
+  display: flex;
+  flex: 1;
+}
+
+.player {
+ flex: 1;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameboard {
+  flex: 2;
+  display: grid;
+  border: 3px solid red;
+}
+
