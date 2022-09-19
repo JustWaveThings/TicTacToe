@@ -1,14 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Potta+One&display=swap');
+
 body {
-  background-color: rgba(0, 0, 0, .9);
+  background-image: linear-gradient(to right,#003973, #3c1053);
   padding: 0;
   margin: 0;
-  color: rgba(196, 195, 195, 0.576);
+  color: #f6d55c;
+  font-family: 'Bungee Spice', cursive;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around ;
   align-items: center;
 }
+
+button {
+  font-family: 'Bungee Spice', cursive;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.reset {
+  background-image: linear-gradient(to right,#BDFFF3, #4AC29A)
+}
+.rematch {
+  background-image: linear-gradient(to left, #BDFFF3, #4AC29A)
+}
+header {
+  font-size: 50px;}
 
 .main{
 
@@ -25,22 +43,71 @@ body {
   flex: .25 0 auto;
   justify-content: center;
   align-items: center;
+  background-color: #173F5f;
+  border-radius: 3ch;
+  box-shadow:  5px 5px 2px #f6d55c;
+  font-size: 25px;
+  font-family: 'Potta One', cursive;
+  text-shadow: 2px 2px #ff0000;
 }
 .playing-area {
   display: flex;
   flex: 1;
+  align-items: center;
 }
 
 .player {
- flex: 1;
+  flex: 1;
   display: flex;
-    justify-content: center;
-    align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ 
+}
+.right {
+  margin-left: 15px;
+  rotate: 12.5deg;
+}
+.left {
+  rotate: -12.5deg;
+}
+span {
+  font-size: 80px;
 }
 
 .gameboard {
-  flex: 2;
-  display: grid;
-  border: 3px solid red;
+  background-color: #20639b;
+  height: 350px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-shadow: 1em 1em 2px #3caea3;
+ /*  border: 3px solid red; */
 }
 
+.a,
+.b,
+.c {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  /* border: 3px solid salmon; */
+ 
+}
+
+.one,
+.two,
+.three {
+  /* border: 3px solid green; */
+  background-color: #f6d55c;
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1px;
+}
+
+.space {
+  font-size: 60px;
+}
