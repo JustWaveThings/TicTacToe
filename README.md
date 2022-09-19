@@ -44,6 +44,9 @@ Take 2 player names, then using a display, prompt each player to place their mar
 - if you need one of something, use a module, if more than one, use a factory
 - remove eventhandler from space once clicked (remember the once parameter for eventhandlers this time... easy peasy)
 
+![image](/TicTacToe/img/ttt%20layout.png)
+
+
 > Think carefully about where each bit of logic should reside. Each little piece of functionality should be able to fit in the game, player or gameboard objects.. but take care to put them in “logical” places. Spending a little time brainstorming here can make your life much easier later!
 
 - Yes, that's why I'm doing this. I want to focus on producing logically constructed code / mvp
