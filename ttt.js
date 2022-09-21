@@ -74,7 +74,7 @@ const baddie = Player('Jeff', 8);
 james.attack(baddie);
 james.attack(james); */
 
-const Player = (name, level) => {
+/* const Player = (name, level) => {
 	let health = level * 2;
 	const getLevel = () => level;
 	const getName = () => name;
@@ -115,3 +115,77 @@ function aGuyAlwaysWins(winner, attacks, loser) {
 }
 //
 aGuyAlwaysWins(badGuy, 20, jimmie);
+ 
+
+/* const Person = (name) => {
+	const sayName = () => console.log(`my name is ${name}`);
+	return { sayName };
+};
+
+/* const Nerd = (name) => {
+	// simply create a person and pull out the sayName function with destructuring assignment syntax!
+	const { sayName } = Person(name);
+	const doSomethingNerdy = () => console.log('nerd stuff');
+	return { sayName, doSomethingNerdy };
+};
+ 
+
+const Nerd = (name) => {
+	const prototype = Person(name);
+	const doSomethingNerdy = () => console.log('nerd stuff as well');
+	return Object.assign({}, prototype, { doSomethingNerdy });
+};
+
+const jeff = Nerd('jeff');
+
+jeff.sayName(); //my name is jeff
+jeff.doSomethingNerdy(); // nerd stuff
+
+var foo = 'foo';
+
+(function (innerFoo) {
+	// Outputs: "foo"
+	console.log(innerFoo);
+})(foo); */
+/* 
+const myModule = (function () {
+	'use strict';
+
+	let _privateProperty = 'Hello World';
+
+	function _privateMethod() {
+		console.log(_privateProperty);
+	}
+	return {
+		publicMethod: function () {
+			_privateMethod();
+		},
+	};
+})();
+
+myModule.publicMethod();
+console.log(myModule._privateProperty);
+myModule._privateMethod(); */
+
+let myModule = (function () {
+	let _privateProperty = 'hello world';
+	let publicProperty = 'I am a public property';
+
+	function _privateMethod() {
+		console.log(_privateProperty);
+	}
+
+	function publicMethod() {
+		_privateMethod();
+	}
+
+	return {
+		publicMethod: publicMethod,
+		publicProperty: publicProperty,
+	};
+})();
+
+myModule.publicMethod();
+console.log(myModule.publicProperty);
+console.log(myModule._privateProperty);
+myModule._privateMethod();
