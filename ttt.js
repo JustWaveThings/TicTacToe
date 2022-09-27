@@ -74,26 +74,37 @@ const board = (() => {
 		{ k1: 2, k2: 4, k3: 6 },
 	];
 
-	let i = 0;
-	do {
-		function checkForWin(pos1, pos2, pos3, winner) {
-			if (
-				gameboard[pos1] === gameboard[pos2] &&
-				gameboard[pos1] === gameboard[pos3] &&
-				gameboard[pos1] !== ''
-			) {
-				console.log(`${winner} has won the game`);
-			}
-		}
-		checkForWin(
-			winnerList[i].k1,
-			winnerList[i].k2,
-			winnerList[i].k3,
-			gameboard[winnerList.k1]
-		);
-		i++;
-	} while (i <= winnerList.length - 1);
+	const allSpaces = document.querySelectorAll('.space');
+	for (let i = 0; i < allSpaces.length; i++) {
+		allSpaces[i].addEventListener('pointerup', (e) => {
+			gameEngine(e);
+		});
+	}
 
+	function gameEngine(e) {
+		let i = 0;
+		do {
+			function checkForWin(pos1, pos2, pos3, winner) {
+				console.log(
+					`${winnerList[i].k1}, ${winnerList[i].k2}, ${winnerList[i].k3}`
+				);
+				if (
+					gameboard[pos1] === gameboard[pos2] &&
+					gameboard[pos1] === gameboard[pos3] &&
+					gameboard[pos1] !== ''
+				) {
+					console.log(`${winner} has won the game`);
+				}
+			}
+			checkForWin(
+				winnerList[i].k1,
+				winnerList[i].k2,
+				winnerList[i].k3,
+				gameboard[winnerList[i].k1]
+			);
+			i++;
+		} while (i <= winnerList.length - 1);
+	}
 	const space0 = document.querySelector('#s0');
 	space0.addEventListener(
 		'pointerup',
@@ -102,7 +113,6 @@ const board = (() => {
 			gameboard[0] = playerTurn;
 			console.log({ gameboard });
 			space0.textContent = playerTurn;
-			//checkForWin();
 		},
 		{ once: true }
 	);
@@ -114,7 +124,6 @@ const board = (() => {
 			gameboard[1] = playerTurn;
 			console.log({ gameboard });
 			space1.textContent = playerTurn;
-			checkForWin();
 		},
 		{ once: true }
 	);
