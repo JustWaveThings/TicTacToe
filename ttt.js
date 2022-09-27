@@ -85,10 +85,9 @@ const board = (() => {
 		let i = 0;
 		do {
 			function checkForWin(pos1, pos2, pos3, winner) {
-				console.log(
+				/* console.log(
 					`${winnerList[i].k1}, ${winnerList[i].k2}, ${winnerList[i].k3}`
-				);
-				if (
+				) */ if (
 					gameboard[pos1] === gameboard[pos2] &&
 					gameboard[pos1] === gameboard[pos3] &&
 					gameboard[pos1] !== ''
