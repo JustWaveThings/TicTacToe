@@ -3,7 +3,7 @@
 /* Build the functions that allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker. Don’t forget the logic that keeps players from playing in spots that are already taken!
 Think carefully about where each bit of logic should reside. Each little piece of functionality should be able to fit in the game, player or gameboard objects.. but take care to put them in “logical” places. Spending a little time brainstorming here can make your life much easier later! */
 
-const GameBoard = (function (moves) {})();
+const GameBoard = (function (moves, names, reset, rematch) {})();
 
 /*
 inputs
@@ -41,7 +41,7 @@ returns
 - players markers  
  */
 
-const Game = (function () {})();
+const Game = (function (GameBoard) {})();
 
 /*
 inputs 
@@ -57,4 +57,5 @@ functions
 returns 
 - current player
 - game status (active, draw, player1 name won, player2 name won)
+
 */
