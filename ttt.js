@@ -33,12 +33,12 @@ inputs
 - none
 
 functions
-- gathers player 1/2 names via prompt
-- assigns player 1 - X, player 2 - O
+- gathers player 1/2 names via prompt  -- assigns them to a private variable
+- assigns player 1 - X, player 2 - O -- assigns them to a private variable
 
 returns 
-- players names
-- players markers  
+- players names that is a public variable
+- players markers that is a public variable
  */
 
 const Game = (function (GameBoard) {})();
@@ -48,9 +48,9 @@ inputs
 - GameBoard state array 
 
 functions
-- set beginning player (for simplicity, it will always be player 1)
-- toggle active player after each valid gameboard click event fired or function call
-- check for win/tie condition against the gameboard on same event fire or function call
+- set beginning player (for simplicity, it will always be player 1) (private)
+- toggle active player after each valid gameboard click event fired or function call (private / public)
+- game status - check for win/tie condition against the gameboard on same event fire or function call  (private / public)
 - rematch game to 'rematch' which keeps the names, but clears the board
 - reset which asks for new names - both clear board of markers / resets gameboard array
 
