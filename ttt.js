@@ -27,31 +27,20 @@ returns
 */
 
 const Player = (name, marker) => {
-	/*   currentMarker = 'X';
-	currentMarker === 'X'
-		? (currentMarker = 'O')
-		: (currentMarker = 'X');
-	marker = currentMarker; */
-	const markerArray = ['X', 'O'];
-	let count = 0;
-	function assignMarker() {
-		marker = markerArray[count];
-		console.log(markerArray[count]);
-		count++;
-	}
-
 	return { name, marker };
 };
 
 const player1 = Player(
-	/* prompt('What is your name player 1?') */ 'Trey'
+	/* prompt('What is your name player 1?') */ 'Trey',
+	'X'
 );
 const player2 = Player(
-	/*prompt('What is your name player 2?') */ 'Toby'
+	/*prompt('What is your name player 2?') */ 'Toby',
+	'O'
 );
 
-console.log(`${player1.name}, marker - ${player1.marker}`); //logs -  Trey, marker - X
-console.log(`${player2.name}, marker - ${player2.marker}`); // logs - Toby, marker - X
+console.log(`${player1.name}, marker - ${player1.marker}`);
+console.log(`${player2.name}, marker - ${player2.marker}`);
 /*
 inputs
 - none
