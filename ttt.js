@@ -50,8 +50,7 @@ functions
 
 
 returns 
-- players names that is a public variable
-- players markers that is a public variable
+- players names and markers in public object 
  */
 
 const Game = (function (GameBoard) {})();
