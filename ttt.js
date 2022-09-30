@@ -46,8 +46,8 @@ inputs
 - none
 
 functions
-- gathers player 1/2 names via prompt  -- assigns them to a private variable
-- assigns player 1 - X, player 2 - O -- assigns them to a private variable
+- gathers player 1/2 names via prompt  --
+
 
 returns 
 - players names that is a public variable
