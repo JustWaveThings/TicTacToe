@@ -20,19 +20,26 @@ const Game = (function (GameBoard) {})();
 
 const GameBoard = (function () {
 	const squares = document.querySelectorAll('.space');
-	let activePlayerMarker = player1.marker;
+	const display = document.querySelector('.display');
+	const displayNamePlayer1 = document.querySelector('.player.left');
+	const displayNamePlayer2 = document.querySelector('.player.right');
+	displayNamePlayer1.textContent = player1.name;
+	displayNamePlayer2.textContent = player2.name;
+
+	let activePlayer = player1;
 	function changePlayerMarker() {
-		activePlayerMarker === player1.marker
-			? (activePlayerMarker = player2.marker)
-			: (activePlayerMarker = player1.marker);
+		activePlayer === player1
+			? (activePlayer = player2)
+			: (activePlayer = player1);
 	}
 	squares.forEach((squares) => {
 		squares.addEventListener(
 			'click',
 			(e) => {
-				console.log(squares.id);
-				e.target.textContent = activePlayerMarker;
+				/* console.log(squares.id); */
+				e.target.textContent = activePlayer.marker;
 				changePlayerMarker();
+				display.textContent = `${activePlayer.name} - your turn!`;
 			},
 			{ once: true }
 		);
