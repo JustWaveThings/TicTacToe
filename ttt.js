@@ -20,13 +20,18 @@ const Game = (function (GameBoard) {})();
 
 const GameBoard = (function () {
 	const squares = document.querySelectorAll('.space');
-	const display = document.querySelector('.display');
+
+	const overHeadDisplay = document.querySelector('.display');
 	const displayNamePlayer1 = document.querySelector('.player.left');
 	const displayNamePlayer2 = document.querySelector('.player.right');
+
+	gameMoves = ['', '', '', '', '', '', '', '', ''];
+
+	let activePlayer = player1;
+
 	displayNamePlayer1.textContent = player1.name;
 	displayNamePlayer2.textContent = player2.name;
 
-	let activePlayer = player1;
 	function changePlayerMarker() {
 		activePlayer === player1
 			? (activePlayer = player2)
@@ -36,10 +41,13 @@ const GameBoard = (function () {
 		squares.addEventListener(
 			'click',
 			(e) => {
-				/* console.log(squares.id); */
+				console.log(e.target.id);
+				gameMoves[e.target.id] = activePlayer.marker;
+				console.log(gameMoves);
 				e.target.textContent = activePlayer.marker;
+
 				changePlayerMarker();
-				display.textContent = `${activePlayer.name} - your turn!`;
+				overHeadDisplay.textContent = `${activePlayer.name} - your turn!`;
 			},
 			{ once: true }
 		);
