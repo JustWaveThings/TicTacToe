@@ -22,9 +22,7 @@ button {
 .reset {
   background-image: linear-gradient(to right,#BDFFF3, #4AC29A)
 }
-.rematch {
-  background-image: linear-gradient(to left, #BDFFF3, #4AC29A)
-}
+
 header {
   font-size: 50px;}
 
@@ -54,6 +52,7 @@ header {
   display: flex;
   flex: 1;
   align-items: center;
+  font-size: 40px;
 }
 
 .player {
@@ -69,11 +68,19 @@ header {
   margin-left: 15px;
   rotate: 12.5deg;
 }
-.left {
+.left  {
   rotate: -12.5deg;
 }
 span {
   font-size: 80px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  margin-left: 15px;
 }
 
 .gameboard {
@@ -84,7 +91,6 @@ span {
   flex-direction: column;
   justify-content: space-around;
   box-shadow: 1em 1em 2px #3caea3;
- /*  border: 3px solid red; */
 }
 
 .a,
@@ -93,7 +99,7 @@ span {
   display: flex;
   flex: 1;
   justify-content: space-around;
-  /* border: 3px solid salmon; */
+
  
 }
 
@@ -111,4 +117,12 @@ span {
 
 .space {
   font-size: 60px;
+}
+
+
+footer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
 }
