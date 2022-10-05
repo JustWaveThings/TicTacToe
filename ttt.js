@@ -3,21 +3,6 @@
 /* Build the functions that allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker. Don’t forget the logic that keeps players from playing in spots that are already taken!
 Think carefully about where each bit of logic should reside. Each little piece of functionality should be able to fit in the game, player or gameboard objects.. but take care to put them in “logical” places. Spending a little time brainstorming here can make your life much easier later! */
 
-const GameBoard = (function () {
-	const squares = document.querySelectorAll('.space');
-	squares.forEach((squares) => {
-		squares.addEventListener(
-			'click',
-			(e) => {
-				console.log(squares.id);
-			},
-			{
-				once: true,
-			}
-		);
-	});
-})();
-
 const Player = (name, marker) => {
 	return { name, marker };
 };
@@ -31,7 +16,25 @@ const player2 = Player(
 	'O'
 );
 
-/* console.log(`${player1.name}, marker - ${player1.marker}`);
-console.log(`${player2.name}, marker - ${player2.marker}`); */
-
 const Game = (function (GameBoard) {})();
+
+const GameBoard = (function () {
+	const squares = document.querySelectorAll('.space');
+	let activePlayerMarker = player1.marker;
+	function changePlayerMarker() {
+		activePlayerMarker === player1.marker
+			? (activePlayerMarker = player2.marker)
+			: (activePlayerMarker = player1.marker);
+	}
+	squares.forEach((squares) => {
+		squares.addEventListener(
+			'click',
+			(e) => {
+				console.log(squares.id);
+				e.target.textContent = activePlayerMarker;
+				changePlayerMarker();
+			},
+			{ once: true }
+		);
+	});
+})();
