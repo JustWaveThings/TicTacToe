@@ -16,7 +16,7 @@ const player2 = Player(
 	'O'
 );
 
-const Game = (function (GameBoard) {})();
+const Game = (function () {})();
 
 const GameBoard = (function () {
 	const squares = document.querySelectorAll('.space');
@@ -25,6 +25,8 @@ const GameBoard = (function () {
 	const displayNamePlayer1 = document.querySelector('.player.left');
 	const displayNamePlayer2 = document.querySelector('.player.right');
 
+	const reset = document.querySelector('.reset');
+
 	gameMoves = ['', '', '', '', '', '', '', '', ''];
 
 	let activePlayer = player1;
@@ -32,11 +34,29 @@ const GameBoard = (function () {
 	displayNamePlayer1.textContent = player1.name;
 	displayNamePlayer2.textContent = player2.name;
 
+	reset.addEventListener('click', function (e) {
+		window.location.reload();
+	});
+
 	function changePlayerMarker() {
 		activePlayer === player1
 			? (activePlayer = player2)
 			: (activePlayer = player1);
 	}
+
+	function checkWinDraw() {
+		const winnerList = [
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+			[0, 4, 8],
+			[2, 4, 6],
+		];
+	}
+
 	squares.forEach((squares) => {
 		squares.addEventListener(
 			'click',
@@ -45,7 +65,7 @@ const GameBoard = (function () {
 				gameMoves[e.target.id] = activePlayer.marker;
 				console.log(gameMoves);
 				e.target.textContent = activePlayer.marker;
-
+				checkWinDraw();
 				changePlayerMarker();
 				overHeadDisplay.textContent = `${activePlayer.name} - your turn!`;
 			},
