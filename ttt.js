@@ -91,12 +91,11 @@ const GameBoard = (function () {
 				gameMoves[e.target.id] = activePlayer.marker;
 				e.target.textContent = activePlayer.marker;
 				checkWinDraw();
-				endGame === true
-					? console.log(
-							`${gameMoves[winnerList[i][0]]} - has won the game!`
-					  )
-					: changePlayerMarker();
-				overHeadDisplay.textContent = `${activePlayer.name} - your turn!`;
+				console.log(!endGame);
+				if (!endGame) {
+					changePlayerMarker();
+					overHeadDisplay.textContent = `${activePlayer.name} - your turn!`;
+				}
 			},
 			{ once: true }
 		);
