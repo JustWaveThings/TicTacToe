@@ -126,3 +126,13 @@ footer {
   flex-direction: column;
   justify-content: center;
 }
+
+.winner {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: .5;
+  }
+}
