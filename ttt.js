@@ -55,15 +55,52 @@ const GameBoard = (function () {
 			[0, 4, 8],
 			[2, 4, 6],
 		];
+		console.table(winnerList);
+		const winSampleList = [0, 1, 2];
+		const gameSampleMoves = ['X', 'O', 'X', '', '', '', '', '', ''];
+
+		/*  pseudocode 
+ 			for each nested array in winnerList check gameMoves array element positions value  to see if any contain 3 of the same marker. if yes, return that marker as winner and display end game message / remove listeners.  */
+
+		/* // this works
+		function checkWinSample() {
+			gameSampleMoves[winSampleList[0]] ===
+				gameSampleMoves[winSampleList[1]] &&
+			gameSampleMoves[winSampleList[0]] ===
+				gameSampleMoves[winSampleList[2]]
+				? console.log(`${gameSampleMoves[winSampleList[0]]} has won`)
+				: console.log('error');
+		} */
+		console.log(gameMoves);
+
+		function checkWinSample2() {
+			for (let i = 0; i < winnerList.length; i++) {
+				if (
+					gameMoves[winnerList[i][0]] ===
+						gameMoves[winnerList[i][1]] &&
+					gameMoves[winnerList[i][0]] ===
+						gameMoves[winnerList[i][2]] &&
+					gameMoves[winnerList[i][0]] !== ''
+				) {
+					console.log(
+						`${gameMoves[winnerList[i][0]]} - has won the game!`
+					);
+				}
+			}
+		}
+
+		checkWinSample2();
+
+		/* 		gameMoves.includes('')
+			? console.log('Keep playing!')
+			: console.log("It's a draw!"); */
 	}
 
 	squares.forEach((squares) => {
 		squares.addEventListener(
 			'click',
 			(e) => {
-				console.log(e.target.id);
 				gameMoves[e.target.id] = activePlayer.marker;
-				console.log(gameMoves);
 				e.target.textContent = activePlayer.marker;
 				checkWinDraw();
 				changePlayerMarker();
