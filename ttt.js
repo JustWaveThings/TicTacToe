@@ -1,22 +1,19 @@
 // only 3 modules/factory functions this time
 
-/* Build the functions that allow players to add marks to a specific spot on the board, and then tie it to the DOM, letting players click on the gameboard to place their marker. Don’t forget the logic that keeps players from playing in spots that are already taken!
-Think carefully about where each bit of logic should reside. Each little piece of functionality should be able to fit in the game, player or gameboard objects.. but take care to put them in “logical” places. Spending a little time brainstorming here can make your life much easier later! */
+const Game = (function () {})();
 
 const Player = (name, marker) => {
 	return { name, marker };
 };
 
 const player1 = Player(
-	/* prompt('What is your name player 1?') */ 'Trey',
+	prompt('What is your name player 1?', 'Trey'),
 	'X'
 );
 const player2 = Player(
-	/*prompt('What is your name player 2?') */ 'Toby',
+	prompt('What is your name player 2?', 'Toby'),
 	'O'
 );
-
-const Game = (function () {})();
 
 const GameBoard = (function () {
 	const squares = document.querySelectorAll('.space');
@@ -30,6 +27,7 @@ const GameBoard = (function () {
 	gameMoves = ['', '', '', '', '', '', '', '', ''];
 
 	let activePlayer = player1;
+	let endGame = false;
 
 	displayNamePlayer1.textContent = player1.name;
 	displayNamePlayer2.textContent = player2.name;
@@ -55,45 +53,35 @@ const GameBoard = (function () {
 			[0, 4, 8],
 			[2, 4, 6],
 		];
-		console.table(winnerList);
-		const winSampleList = [0, 1, 2];
-		const gameSampleMoves = ['X', 'O', 'X', '', '', '', '', '', ''];
 
-		/*  pseudocode 
- 			for each nested array in winnerList check gameMoves array element positions value  to see if any contain 3 of the same marker. if yes, return that marker as winner and display end game message / remove listeners.  */
-
-		/* // this works
-		function checkWinSample() {
-			gameSampleMoves[winSampleList[0]] ===
-				gameSampleMoves[winSampleList[1]] &&
-			gameSampleMoves[winSampleList[0]] ===
-				gameSampleMoves[winSampleList[2]]
-				? console.log(`${gameSampleMoves[winSampleList[0]]} has won`)
-				: console.log('error');
-		} */
-		console.log(gameMoves);
-
-		function checkWinSample2() {
-			for (let i = 0; i < winnerList.length; i++) {
-				if (
-					gameMoves[winnerList[i][0]] ===
-						gameMoves[winnerList[i][1]] &&
-					gameMoves[winnerList[i][0]] ===
-						gameMoves[winnerList[i][2]] &&
-					gameMoves[winnerList[i][0]] !== ''
-				) {
-					console.log(
-						`${gameMoves[winnerList[i][0]]} - has won the game!`
-					);
-				}
+		for (let i = 0; i < winnerList.length; i++) {
+			if (
+				gameMoves[winnerList[i][0]] === gameMoves[winnerList[i][1]] &&
+				gameMoves[winnerList[i][0]] === gameMoves[winnerList[i][2]] &&
+				gameMoves[winnerList[i][0]] !== ''
+			) {
+				const blinkWinnerSpace1 = document.getElementById(
+					`${winnerList[i][0]}`
+				);
+				const blinkWinnerSpace2 = document.getElementById(
+					`${winnerList[i][1]}`
+				);
+				const blinkWinnerSpace3 = document.getElementById(
+					`${winnerList[i][2]}`
+				);
+				blinkWinnerSpace1.classList.add('winner');
+				blinkWinnerSpace2.classList.add('winner');
+				blinkWinnerSpace3.classList.add('winner');
+				overHeadDisplay.textContent = `${activePlayer.name} - YOU WON!`;
+				endGame = true;
 			}
 		}
 
-		checkWinSample2();
-
-		/* 		gameMoves.includes('')
-			? console.log('Keep playing!')
-			: console.log("It's a draw!"); */
+		if (!gameMoves.includes('')) {
+			endGame = true;
+			overHeadDisplay.textContent =
+				"It's a Draw! Hit reset to play a new game.";
+		}
 	}
 
 	squares.forEach((squares) => {
@@ -103,7 +91,11 @@ const GameBoard = (function () {
 				gameMoves[e.target.id] = activePlayer.marker;
 				e.target.textContent = activePlayer.marker;
 				checkWinDraw();
-				changePlayerMarker();
+				endGame === true
+					? console.log(
+							`${gameMoves[winnerList[i][0]]} - has won the game!`
+					  )
+					: changePlayerMarker();
 				overHeadDisplay.textContent = `${activePlayer.name} - your turn!`;
 			},
 			{ once: true }
