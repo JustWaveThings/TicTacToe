@@ -16,8 +16,20 @@ player1.setName(prompt(`Player One - What is your name?`));
 player2.setName(prompt(`Player Two - What is your name?`));
 
 const Game = (function () {
-	let activePlayer = player1;
+	let activePlayer;
+	let startPlayer = player1;
+	let i = 0;
 	let endGame = false;
+
+	function whoIsPlaying(i) {
+		if (i === 0) {
+			i++;
+			return startPlayer;
+		}
+		if (i !== 0) {
+			return changePlayerMarker();
+		}
+	}
 
 	function changePlayerMarker() {
 		if (activePlayer === player1) {
@@ -79,6 +91,7 @@ const Game = (function () {
 		}
 	}
 	return {
+		whoIsPlaying,
 		endGame,
 		checkWinDraw,
 		changePlayerMarker,
@@ -110,8 +123,8 @@ const GameBoard = (function () {
 		squares.addEventListener(
 			'click',
 			(e) => {
-				gameMoves[e.target.id] = Game.activePlayer.marker;
-				e.target.textContent = Game.changePlayerMarker().marker;
+				gameMoves[e.target.id] = Game.whoIsPlaying().marker;
+				e.target.textContent = Game.whoIsPlaying().marker;
 				console.log(
 					`This is the marker that was just placed on the board - ${
 						gameMoves[e.target.id]
@@ -124,7 +137,7 @@ const GameBoard = (function () {
 					/* console.log(
 						`In the EventListener function after changePlayerMarker()  is called will be the next marker to be placed  - ${Game.activePlayer.marker}-- this should be the SAME value as what is in changePlayerMarker()`
 					); */
-					headsUpDisplay.textContent = `${Game.activePlayer.getName()} - your turn!`;
+					headsUpDisplay.textContent = `${Game.whoIsPlaying().getName()} - your turn!`;
 				}
 			},
 			{ once: true }
