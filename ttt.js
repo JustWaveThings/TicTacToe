@@ -30,22 +30,23 @@ const Game = (function () {
 			return changePlayerMarker();
 		}
 	}
+	whoIsPlaying(i);
 
 	function changePlayerMarker() {
 		if (activePlayer === player1) {
 			activePlayer = player2;
-			console.log(
-				`In changePlayerMarker Function --  the next marker is - ${activePlayer.marker}`
-			);
 			return activePlayer;
 		} else {
 			activePlayer = player1;
-			console.log(
-				`In changePlayerMarker Function --  the next marker is -${activePlayer.marker}`
-			);
 			return activePlayer;
 		}
 	}
+
+	/* 	function disableClicksOnGameEnd() {
+	 if (endGame) { 
+			
+		 } 
+	} */
 
 	function checkWinDraw() {
 		const winnerList = [
@@ -125,18 +126,9 @@ const GameBoard = (function () {
 			(e) => {
 				gameMoves[e.target.id] = Game.whoIsPlaying().marker;
 				e.target.textContent = Game.whoIsPlaying().marker;
-				console.log(
-					`This is the marker that was just placed on the board - ${
-						gameMoves[e.target.id]
-					}`
-				);
 				Game.checkWinDraw();
 				if (!Game.endGame) {
-					//console.log('game is not over');
-					//Game.changePlayerMarker();
-					/* console.log(
-						`In the EventListener function after changePlayerMarker()  is called will be the next marker to be placed  - ${Game.activePlayer.marker}-- this should be the SAME value as what is in changePlayerMarker()`
-					); */
+					console.log('game is not over');
 					headsUpDisplay.textContent = `${Game.whoIsPlaying().getName()} - your turn!`;
 				}
 			},
