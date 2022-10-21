@@ -42,11 +42,13 @@ const Game = (function () {
 		}
 	}
 
-	/* 	function disableClicksOnGameEnd() {
-	 if (endGame) { 
-			
-		 } 
-	} */
+	function disableClicksOnGameEnd() {
+		console.log('clicks disabled');
+	}
+
+	function winMessage() {
+		console.log('display win message');
+	}
 
 	function checkWinDraw() {
 		const winnerList = [
@@ -82,6 +84,10 @@ const Game = (function () {
 				blinkWinnerSpace3.classList.add('winner');
 				GameBoard.headsUpDisplay.textContent = `${activePlayer.getName()} - YOU WON!`;
 				endGame = true;
+				console.log('checkwindraw says theres a winner');
+				break;
+			} else {
+				console.log("checkWinDraw says there's not a winner");
 			}
 		}
 
@@ -92,6 +98,7 @@ const Game = (function () {
 		}
 	}
 	return {
+		disableClicksOnGameEnd,
 		whoIsPlaying,
 		endGame,
 		checkWinDraw,
@@ -130,6 +137,11 @@ const GameBoard = (function () {
 				if (!Game.endGame) {
 					console.log('game is not over');
 					headsUpDisplay.textContent = `${Game.whoIsPlaying().getName()} - your turn!`;
+				}
+				if (Game.endGame) {
+					console.log('game is over');
+					disableClicksOnGameEnd();
+					winMessage();
 				}
 			},
 			{ once: true }
