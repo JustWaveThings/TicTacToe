@@ -12,14 +12,14 @@ const Player = (marker) => {
 const player1 = Player('X');
 const player2 = Player('O');
 
-player1.setName(prompt(`Player One - What is your name?`));
-player2.setName(prompt(`Player Two - What is your name?`));
+player1.setName(prompt(`Player One - What is your name?`, 'Joe'));
+player2.setName(prompt(`Player Two - What is your name?`, 'Zoe'));
 
 const Game = (function () {
 	let activePlayer;
 	let startPlayer = player1;
 	let i = 0;
-	let endGame = false;
+	let endGame;
 
 	function whoIsPlaying(i) {
 		if (i === 0) {
@@ -30,6 +30,7 @@ const Game = (function () {
 			return changePlayerMarker();
 		}
 	}
+
 	whoIsPlaying(i);
 
 	function changePlayerMarker() {
@@ -82,20 +83,18 @@ const Game = (function () {
 				blinkWinnerSpace1.classList.add('winner');
 				blinkWinnerSpace2.classList.add('winner');
 				blinkWinnerSpace3.classList.add('winner');
-				GameBoard.headsUpDisplay.textContent = `${activePlayer.getName()} - YOU WON!`;
-				endGame = true;
-				console.log('checkwindraw says theres a winner');
-				break;
-			} else {
-				console.log("checkWinDraw says there's not a winner");
+				/* GameBoard.headsUpDisplay.textContent = `${activePlayer.getName()} - YOU WON!`; */
+				console.log('checkWinDraw() says theres a winner');
+				return (endGame = true);
 			}
+			console.log(endGame);
 		}
-
+		/* 
 		if (!GameBoard.gameMoves.includes('')) {
 			endGame = true;
 			GameBoard.headsUpDisplay.textContent =
 				"It's a Draw! Click Reset to play a new game.";
-		}
+		} */
 	}
 	return {
 		disableClicksOnGameEnd,
@@ -134,14 +133,17 @@ const GameBoard = (function () {
 				gameMoves[e.target.id] = Game.whoIsPlaying().marker;
 				e.target.textContent = Game.whoIsPlaying().marker;
 				Game.checkWinDraw();
+				console.log(
+					`the value of Game.endGame in GameBoard module ${Game.endGame}`
+				);
 				if (!Game.endGame) {
 					console.log('game is not over');
 					headsUpDisplay.textContent = `${Game.whoIsPlaying().getName()} - your turn!`;
 				}
 				if (Game.endGame) {
 					console.log('game is over');
-					disableClicksOnGameEnd();
-					winMessage();
+					Game.disableClicksOnGameEnd();
+					Game.winMessage();
 				}
 			},
 			{ once: true }
