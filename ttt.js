@@ -12,14 +12,13 @@ const Player = (marker) => {
 const player1 = Player('X');
 const player2 = Player('O');
 
-player1.setName(prompt(`Player One - What is your name?`, 'Joe'));
-player2.setName(prompt(`Player Two - What is your name?`, 'Zoe'));
+player1.setName(prompt(`Player One - What is your name?`, 'Odin'));
+player2.setName(prompt(`Player Two - What is your name?`, 'Thor'));
 
 const Game = (function () {
 	let activePlayer;
 	let startPlayer = player1;
 	let i = 0;
-	let endGame;
 
 	function whoIsPlaying(i) {
 		if (i === 0) {
@@ -44,11 +43,15 @@ const Game = (function () {
 	}
 
 	function disableClicksOnGameEnd() {
-		console.log('clicks disabled');
+		GameBoard.squares.forEach((squares) => {
+			squares.replaceWith(squares.cloneNode(true));
+		});
 	}
 
 	function winMessage() {
 		console.log('display win message');
+		GameBoard.headsUpDisplay.textContent =
+			"It's a WIN! Click Reset to play a new game.";
 	}
 
 	function checkWinDraw() {
@@ -83,23 +86,22 @@ const Game = (function () {
 				blinkWinnerSpace1.classList.add('winner');
 				blinkWinnerSpace2.classList.add('winner');
 				blinkWinnerSpace3.classList.add('winner');
-				/* GameBoard.headsUpDisplay.textContent = `${activePlayer.getName()} - YOU WON!`; */
-				console.log('checkWinDraw() says theres a winner');
-				return (endGame = true);
+				winMessage();
+				disableClicksOnGameEnd();
 			}
-			console.log(endGame);
 		}
-		/* 
+
 		if (!GameBoard.gameMoves.includes('')) {
-			endGame = true;
+			console.log('draw!');
+			console.log(GameBoard.headsUpDisplay.textContent);
 			GameBoard.headsUpDisplay.textContent =
 				"It's a Draw! Click Reset to play a new game.";
-		} */
+			console.log(GameBoard.headsUpDisplay.textContent);
+		}
 	}
 	return {
 		disableClicksOnGameEnd,
 		whoIsPlaying,
-		endGame,
 		checkWinDraw,
 		changePlayerMarker,
 		activePlayer,
@@ -126,30 +128,25 @@ const GameBoard = (function () {
 		window.location.reload();
 	});
 
+	function atClick(e) {
+		gameMoves[e.target.id] = Game.whoIsPlaying().marker;
+		e.target.textContent = Game.whoIsPlaying().marker;
+		headsUpDisplay.textContent = `${Game.whoIsPlaying().getName()} - your turn!`;
+		Game.checkWinDraw();
+	}
+
 	squares.forEach((squares) => {
 		squares.addEventListener(
 			'click',
 			(e) => {
-				gameMoves[e.target.id] = Game.whoIsPlaying().marker;
-				e.target.textContent = Game.whoIsPlaying().marker;
-				Game.checkWinDraw();
-				console.log(
-					`the value of Game.endGame in GameBoard module ${Game.endGame}`
-				);
-				if (!Game.endGame) {
-					console.log('game is not over');
-					headsUpDisplay.textContent = `${Game.whoIsPlaying().getName()} - your turn!`;
-				}
-				if (Game.endGame) {
-					console.log('game is over');
-					Game.disableClicksOnGameEnd();
-					Game.winMessage();
-				}
+				atClick(e);
 			},
 			{ once: true }
 		);
 	});
 	return {
+		atClick,
+		squares,
 		headsUpDisplay,
 		gameMoves,
 	};
