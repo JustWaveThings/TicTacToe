@@ -1,207 +1,153 @@
-/*  = (() => {
-	const gameMoves =
-		({ a1: 1, a2: 1, a3: 1 },
-		{ b1: 1, b2: 1, b3: 1 },
-		{ c1: 1, c2: 1, c3: 1 },
-		{ a1: 1, b1: 1, c1: 1 },
-		{ a2: 1, b2: 1, c2: 1 },
-		{ a3: 1, b3: 1, c3: 1 },
-		{ a1: 1, b2: 1, c3: 1 },
-		{ a3: 1, b2: 1, c1: 1 });
-})();
+// This time -- separate concerns / encapsulation  into  3 modules/factory functions
 
-const Player = () => {
-	const assignName = prompt('Enter your name: ');
-	const assignToPosition = () => playerList.push(assignName);
-	const sayName = () => console.log(`my name is ${assignName}`);
-	return { assignName, assignToPosition, sayName };
+//// creates players
+const Player = (marker) => {
+	let name = 'PLAYER';
+	const setName = (newName) => {
+		name = newName;
+	};
+	const getName = () => name;
+	return { name, marker, setName, getName };
 };
+const player1 = Player('X');
+const player2 = Player('O');
 
-playerList = [];
+player1.setName(prompt(`Player One - What is your name?`, 'Odin'));
+player2.setName(prompt(`Player Two - What is your name?`, 'Thor'));
 
-const player1 = Player();
-const player2 = Player();
+const Game = (function () {
+	let activePlayer;
+	let startPlayer = player1;
+	let i = 0;
 
-player1.assignName;
-player1.assignToPosition();
-player1.sayName();
- */
-/* 
-const Player = (name, marker) => {
-	playerList.push(name);
-	console.log(`${playerList}`);
-	return { name, marker };
-};
-
-let playerList = [];
-
-const abby = Player('abby');
-const david = Player('david'); */
-
-/* Set up your HTML and write a JavaScript function that will render the contents of the gameboard array to the webpage (for now you can just manually fill in the array with "X"s and "O"s)
- */
-/* 
-  winning array examples
-  0 1 2 3 4 5 6 7 8 
-  X X X               // ACROSS(3)
-        X X X
-              X X X
-  X     X     X       // DOWN(3)
-   X      X     X
-     X      X     X
-  X       X       X      // DIAGONAL(2)
-      X   X   X    
-
- */
-
-const board = (() => {
-	let playerTurn = 'O';
-
-	function whoseTurn() {
-		playerTurn === 'X' ? (playerTurn = 'O') : (playerTurn = 'X');
-		return playerTurn;
+	function whoIsPlaying(i) {
+		if (i === 0) {
+			i++;
+			return startPlayer;
+		}
+		if (i !== 0) {
+			return changePlayerMarker();
+		}
 	}
-	let gameboard = ['', '', '', '', '', '', '', '', ''];
 
-	let winnerList = [
-		{ k1: 0, k2: 1, k3: 2 },
-		{ k1: 3, k2: 4, k3: 5 },
-		{ k1: 6, k2: 7, k3: 8 },
-		{ k1: 0, k2: 3, k3: 6 },
-		{ k1: 1, k2: 4, k3: 7 },
-		{ k1: 2, k2: 5, k3: 8 },
-		{ k1: 0, k2: 4, k3: 8 },
-		{ k1: 2, k2: 4, k3: 6 },
-	];
+	whoIsPlaying(i);
 
-	const allSpaces = document.querySelectorAll('.space');
-	for (let i = 0; i < allSpaces.length; i++) {
-		allSpaces[i].addEventListener('pointerup', (e) => {
-			gameEngine(e);
+	function changePlayerMarker() {
+		if (activePlayer === player1) {
+			activePlayer = player2;
+			return activePlayer;
+		} else {
+			activePlayer = player1;
+			return activePlayer;
+		}
+	}
+
+	function disableClicksOnGameEnd() {
+		GameBoard.squares.forEach((squares) => {
+			squares.replaceWith(squares.cloneNode(true));
 		});
 	}
 
-	function gameEngine(e) {
-		let i = 0;
-		do {
-			function checkForWin(pos1, pos2, pos3, winner) {
-				console.log(
-					`${winnerList[i].k1}, ${winnerList[i].k2}, ${winnerList[i].k3}`
-				);
-				if (
-					gameboard[pos1] === gameboard[pos2] &&
-					gameboard[pos1] === gameboard[pos3] &&
-					gameboard[pos1] !== ''
-				) {
-					console.log(`${winner} has won the game`);
-				}
-			}
-			checkForWin(
-				winnerList[i].k1,
-				winnerList[i].k2,
-				winnerList[i].k3,
-				gameboard[winnerList[i].k1]
-			);
-			i++;
-		} while (i <= winnerList.length - 1);
+	function winMessage() {
+		console.log('display win message');
+		GameBoard.headsUpDisplay.textContent =
+			"It's a WIN! Click Reset to play a new game.";
 	}
-	const space0 = document.querySelector('#s0');
-	space0.addEventListener(
-		'pointerup',
-		(e) => {
-			whoseTurn();
-			gameboard[0] = playerTurn;
-			console.log({ gameboard });
-			space0.textContent = playerTurn;
-		},
-		{ once: true }
-	);
-	const space1 = document.querySelector('#s1');
-	space1.addEventListener(
-		'pointerup',
-		(e) => {
-			whoseTurn();
-			gameboard[1] = playerTurn;
-			console.log({ gameboard });
-			space1.textContent = playerTurn;
-		},
-		{ once: true }
-	);
-	const space2 = document.querySelector('#s2');
-	space2.addEventListener(
-		'pointerup',
-		(e) => {
-			whoseTurn();
-			gameboard[2] = playerTurn;
-			console.log({ gameboard });
-			space2.textContent = playerTurn;
-		},
-		{ once: true }
-	);
-	const space3 = document.querySelector('#s3');
-	space3.addEventListener(
-		'pointerup',
-		(e) => {
-			whoseTurn();
-			gameboard[3] = playerTurn;
-			console.log({ gameboard });
-			space3.textContent = playerTurn;
-		},
-		{ once: true }
-	);
-	const space4 = document.querySelector('#s4');
-	space4.addEventListener(
-		'pointerup',
-		(e) => {
-			whoseTurn();
-			gameboard[4] = playerTurn;
-			console.log({ gameboard });
-			space4.textContent = playerTurn;
-		},
-		{ once: true }
-	);
-	const space5 = document.querySelector('#s5');
-	space5.addEventListener(
-		'pointerup',
-		(e) => {
-			whoseTurn();
-			gameboard[5] = playerTurn;
-			console.log({ gameboard });
-			space5.textContent = playerTurn;
-		},
-		{ once: true }
-	);
-	const space6 = document.querySelector('#s6');
-	space6.addEventListener(
-		'pointerup',
-		(e) => {
-			whoseTurn();
-			gameboard[6] = playerTurn;
-			console.log({ gameboard });
-			space6.textContent = playerTurn;
-		},
-		{ once: true }
-	);
-	const space7 = document.querySelector('#s7');
-	space7.addEventListener(
-		'pointerup',
-		(e) => {
-			whoseTurn();
-			gameboard[7] = playerTurn;
-			console.log({ gameboard });
-			space7.textContent = playerTurn;
-		},
-		{ once: true }
-	);
-	const space8 = document.querySelector('#s8');
-	space8.addEventListener(
-		'pointerup',
-		(e) => {
-			whoseTurn();
-			gameboard[8] = playerTurn;
-			console.log({ gameboard });
-			space8.textContent = playerTurn;
-		},
-		{ once: true }
-	);
+
+	function checkWinDraw() {
+		const winnerList = [
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+			[0, 4, 8],
+			[2, 4, 6],
+		];
+
+		for (let i = 0; i < winnerList.length; i++) {
+			if (
+				GameBoard.gameMoves[winnerList[i][0]] ===
+					GameBoard.gameMoves[winnerList[i][1]] &&
+				GameBoard.gameMoves[winnerList[i][0]] ===
+					GameBoard.gameMoves[winnerList[i][2]] &&
+				GameBoard.gameMoves[winnerList[i][0]] !== ''
+			) {
+				const blinkWinnerSpace1 = document.getElementById(
+					`${winnerList[i][0]}`
+				);
+				const blinkWinnerSpace2 = document.getElementById(
+					`${winnerList[i][1]}`
+				);
+				const blinkWinnerSpace3 = document.getElementById(
+					`${winnerList[i][2]}`
+				);
+				blinkWinnerSpace1.classList.add('winner');
+				blinkWinnerSpace2.classList.add('winner');
+				blinkWinnerSpace3.classList.add('winner');
+				winMessage();
+				disableClicksOnGameEnd();
+			}
+		}
+
+		if (!GameBoard.gameMoves.includes('')) {
+			console.log('draw!');
+			console.log(GameBoard.headsUpDisplay.textContent);
+			GameBoard.headsUpDisplay.textContent =
+				"It's a Draw! Click Reset to play a new game.";
+			console.log(GameBoard.headsUpDisplay.textContent);
+		}
+	}
+	return {
+		disableClicksOnGameEnd,
+		whoIsPlaying,
+		checkWinDraw,
+		changePlayerMarker,
+		activePlayer,
+	};
+})();
+
+// gameboard handles visual input / output
+
+const GameBoard = (function () {
+	const squares = document.querySelectorAll('.space');
+
+	const headsUpDisplay = document.querySelector('.display');
+	const displayNamePlayer1 = document.querySelector('.player.left');
+	const displayNamePlayer2 = document.querySelector('.player.right');
+
+	const reset = document.querySelector('.reset');
+
+	gameMoves = ['', '', '', '', '', '', '', '', ''];
+
+	displayNamePlayer1.textContent = player1.getName();
+	displayNamePlayer2.textContent = player2.getName();
+
+	reset.addEventListener('click', function (e) {
+		window.location.reload();
+	});
+
+	function atClick(e) {
+		gameMoves[e.target.id] = Game.whoIsPlaying().marker;
+		e.target.textContent = Game.whoIsPlaying().marker;
+		headsUpDisplay.textContent = `${Game.whoIsPlaying().getName()} - your turn!`;
+		Game.checkWinDraw();
+	}
+
+	squares.forEach((squares) => {
+		squares.addEventListener(
+			'click',
+			(e) => {
+				atClick(e);
+			},
+			{ once: true }
+		);
+	});
+	return {
+		atClick,
+		squares,
+		headsUpDisplay,
+		gameMoves,
+	};
 })();
